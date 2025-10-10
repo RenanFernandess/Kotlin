@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">trybe Clima</string>
+    <string name="back_icon_description">voltar para página anterior</string>
 </resources>
