@@ -1,4 +1,11 @@
 <resources>
     <string name="app_name">trybe Clima</string>
     <string name="back_icon_description">voltar para página anterior</string>
+    <string name="min_temp">Min:</string>
+    <string name="max_temp">Max:</string>
+    <string name="feels_like">ST:</string>
+    <string name="humidity">Umidade:</string>
+    <string name="app_logo">logo do app</string>
+    <string name="search_button">Buscar</string>
+    <string name="field_input_city_name">Digite o nome da cidade</string>
 </resources>
