@@ -6,7 +6,7 @@
     <data>
         <variable
             name="vm"
-            type="br.com.renan.trybeclima.viewmodel.CityWeatherActivityViewModel" />
+            type="br.com.renan.trybeclima.ui.viewmodel.CityWeatherActivityViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -32,6 +32,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
+            android:text='@{vm.pageTitle}'
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="@+id/city_weather_back_button"
             app:layout_constraintEnd_toEndOf="parent"

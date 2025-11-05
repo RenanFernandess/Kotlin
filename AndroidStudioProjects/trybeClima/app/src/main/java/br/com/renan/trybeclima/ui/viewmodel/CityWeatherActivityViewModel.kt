@@ -1,0 +1,67 @@
+package br.com.renan.trybeclima.ui.viewmodel
+
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import br.com.renan.trybeclima.R
+import br.com.renan.trybeclima.data.repository.WeatherRepository
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+
+class CityWeatherActivityViewModel: ViewModel() {
+    private val weatherRepository = WeatherRepository()
+
+    private var _pageTitle = MutableLiveData("")
+    val pageTitle: LiveData<String>
+        get() = _pageTitle
+
+    private var _isLoading = MutableStateFlow(true)
+    val isLoading: StateFlow<Boolean>
+        get() = _isLoading
+
+    private var _cityName = MutableLiveData("")
+    val cityName: LiveData<String>
+        get() = _cityName
+
+    private var _cityTemp = MutableLiveData("0 °C")
+    val cityTemp: LiveData<String>
+        get() = _cityTemp
+
+    private var _cityMinTemp = MutableLiveData("0 °C")
+    val cityMinTem: LiveData<String>
+        get() = _cityMinTemp
+
+    private var _cityMaxTemp = MutableLiveData("0 °C")
+    val cityMaxTemp: LiveData<String>
+        get() = _cityMaxTemp
+
+    private var _cityFeelsTemp = MutableLiveData("0 °C")
+    val cityFeelsTemp: LiveData<String>
+        get() = _cityFeelsTemp
+
+    private var _cityHumidity = MutableLiveData("0%")
+    val cityHumidity: LiveData<String>
+        get() = _cityHumidity
+
+    fun getWeatherData(cityName: String) {
+        CoroutineScope(Dispatchers.IO).launch {
+            val weather = weatherRepository.getWeather(cityName)
+            if (weather != null) {
+                _cityName.postValue(weather.cityName)
+                _cityTemp.postValue(weather.temp)
+                _cityMinTemp.postValue(weather.minTemp)
+                _cityMaxTemp.postValue(weather.maxTemp)
+                _cityFeelsTemp.postValue(weather.feelsLike)
+                _cityHumidity.postValue(weather.humidity)
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun setPageTitle(cityName: String) {
+        _pageTitle.postValue(cityName)
+    }
+}
