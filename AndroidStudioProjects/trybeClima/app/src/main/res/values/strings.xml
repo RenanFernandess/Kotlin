@@ -8,6 +8,6 @@
     <string name="app_logo">logo do app</string>
     <string name="search_button">Buscar</string>
     <string name="field_input_city_name">Digite o nome da cidade</string>
-    <string name="city_weather_activity_page_tile">Clima em</string>
+    <string name="city_weather_activity_page_tile">Clima em %s</string>
     <string name="main_field_input_city_name_error">Digite o nome da cidade antes de continuar!</string>
 </resources>
