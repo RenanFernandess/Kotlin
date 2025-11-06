@@ -14,13 +14,13 @@ import kotlinx.coroutines.launch
 class CityWeatherActivityViewModel: ViewModel() {
     private val weatherRepository = WeatherRepository()
 
-    private var _pageTitle = MutableLiveData("")
-    val pageTitle: LiveData<String>
-        get() = _pageTitle
+    private var _cityNamePageTitle = MutableLiveData("")
+    val cityNamePageTitle: LiveData<String>
+        get() = _cityNamePageTitle
 
-    private var _isLoading = MutableStateFlow(true)
-    val isLoading: StateFlow<Boolean>
-        get() = _isLoading
+    private var _requestStatus = MutableStateFlow("")
+    val isLoading: StateFlow<String>
+        get() = _requestStatus
 
     private var _cityName = MutableLiveData("")
     val cityName: LiveData<String>
@@ -56,12 +56,16 @@ class CityWeatherActivityViewModel: ViewModel() {
                 _cityMaxTemp.postValue(weather.maxTemp)
                 _cityFeelsTemp.postValue(weather.feelsLike)
                 _cityHumidity.postValue(weather.humidity)
-                _isLoading.value = false
-            }
+                setRequestStatus("ok")
+            } else setRequestStatus("error")
         }
     }
 
-    fun setPageTitle(cityName: String) {
-        _pageTitle.postValue(cityName)
+    private fun setRequestStatus(status: String) {
+        _requestStatus.value = status
+    }
+
+    fun setCityNamePageTitle(cityName: String) {
+        _cityNamePageTitle.postValue(cityName)
     }
 }

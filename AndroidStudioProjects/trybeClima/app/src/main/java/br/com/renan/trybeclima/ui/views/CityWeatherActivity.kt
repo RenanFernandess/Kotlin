@@ -26,11 +26,12 @@ class CityWeatherActivity: AppCompatActivity() {
         setContentView(binding.root)
         cityName = intent.getStringExtra("city").toString()
 
-        viewModel.setPageTitle(cityName)
+        viewModel.setCityNamePageTitle(cityName)
         binding.cityWeatherBackButton.setOnClickListener { finish() }
+        binding.cityTryAgainButton.setOnClickListener { finish() }
         lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.isLoading.collect { if (!it) finishLoading() }
+                viewModel.isLoading.collect { if (it == "ok") showWeather() else if(it == "error") showMessageError() }
             }
         }
     }
@@ -40,7 +41,12 @@ class CityWeatherActivity: AppCompatActivity() {
         viewModel.getWeatherData(cityName)
     }
 
-    private fun finishLoading() {
+    private fun showMessageError() {
+        binding.cityWeatherProgressIndicator.visibility = View.GONE
+        binding.cityErrorMessageLayout.visibility = View.VISIBLE
+    }
+
+    private fun showWeather() {
         binding.cityWeatherProgressIndicator.visibility = View.GONE
         binding.cityWeatherLayout.visibility = View.VISIBLE
     }
