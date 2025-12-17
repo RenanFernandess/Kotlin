@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">trybe Clima</string>
+    <string name="back_icon_description">voltar para página anterior</string>
+    <string name="min_temp">Min:</string>
+    <string name="max_temp">Max:</string>
+    <string name="feels_like">ST:</string>
+    <string name="humidity">Umidade:</string>
+    <string name="app_logo">logo do app</string>
+    <string name="search_button">Buscar</string>
+    <string name="field_input_city_name">Digite o nome da cidade</string>
+    <string name="city_weather_activity_page_tile">Clima em %s</string>
+    <string name="main_field_input_city_name_error">Digite o nome da cidade antes de continuar!</string>
+    <string name="try_again_button">Tentar novamente</string>
+    <string name="city_request_error_message">Não foi possível encontra a cidade %s. Confira se o nome está correto e busque novamente!</string>
+</resources>
