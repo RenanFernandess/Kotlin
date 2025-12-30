@@ -1,0 +1,51 @@
+# Created by https://www.gitignore.io
+
+### General Build Artifacts ###
+.gradle
+/build/
+/out/
+/target/
+# Kotlin Gradle plugin directory
+.kotlin/
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!.gradle/wrapper/gradle-wrapper.jar
+
+# Avoid ignoring Maven wrapper jar file (.jar files are usually ignored)
+!.mvn/wrapper/maven-wrapper.jar
+
+### IDE Specific Files ###
+# IntelliJ IDEA
+.idea/
+*.iws
+*.iml
+*.ipr
+
+# Eclipse
+.classpath
+.project
+.settings/
+.sts4-cache/
+.apt_generated/
+
+# VS Code (optional)
+.vscode/
+
+### System and Temporary Files ###
+*.class
+*.log
+*.txt
+logs/
+hs_err_pid* # JVM crash logs
+.DS_Store # macOS system file
+Thumbs.db # Windows system file
+
+### Configuration and Environment Files ###
+# Exclude sensitive or local configuration files
+.env
+application.properties.example
+application.yml.example
+*.jks # Keystore files (if applicable)
+
+# Exclude local properties files specific to environment (e.g., SDK path in Android projects)
+local.properties
