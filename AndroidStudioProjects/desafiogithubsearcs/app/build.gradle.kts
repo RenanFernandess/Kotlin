@@ -5,7 +5,11 @@ plugins {
 
 android {
     namespace = "br.com.renan.desafio_github_searcs"
-    compileSdk = 35
+    compileSdk = 36
+
+    buildFeatures {
+        viewBinding = true
+    }
 
     defaultConfig {
         applicationId = "br.com.renan.desafio_github_searcs"
@@ -43,6 +47,9 @@ dependencies {
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
     testImplementation(libs.junit)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }
