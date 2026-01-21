@@ -1,5 +1,6 @@
 package br.com.renan.desafio_github_searcs.ui.views
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
@@ -17,8 +18,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import androidx.core.content.edit
+import br.com.renan.desafio_github_searcs.data.models.RepositoryItemListener
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), RepositoryItemListener {
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
     private val mainActivityRepository = MainActivityRepository()
@@ -35,7 +37,6 @@ class MainActivity : AppCompatActivity() {
             requestRepositories(userName)
         }
 
-//        implmentar o botão de compartilhar
 //        ao clicar no repositorio deve abrir em uma aba do navegador
 //        Validar o input
 //        Implmentar mensagem de erro caso o usuario seja invalido
@@ -63,7 +64,7 @@ class MainActivity : AppCompatActivity() {
             val repositoriesList = mainActivityRepository.getAllRepositoriesByUser(userName)
             repositoriesList?.let {
                 withContext(Dispatchers.Main) {
-                    binding.repositoriesRecyclerView.adapter = RepositoriesAdapter(repositoriesList)
+                    binding.repositoriesRecyclerView.adapter = RepositoriesAdapter(repositoriesList, this@MainActivity)
                     binding.resultTextViewMessage.visibility = View.VISIBLE
                     binding.repositoriesRecyclerView.visibility = View.VISIBLE
                     binding.circularProgressIndicator.visibility = View.GONE
@@ -80,4 +81,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun getSavedUserName(): String? = getPreferences(MODE_PRIVATE).getString(getString(R.string.user_name_preferences_key), "")
+
+    override fun shareRepository(repositoryUrl: String) {
+        val sendIntent: Intent = Intent().apply {
+            action = Intent.ACTION_SEND
+            putExtra(Intent.EXTRA_TEXT, repositoryUrl)
+            type = "text/plain"
+        }
+
+        val shareIntent = Intent.createChooser(sendIntent, null)
+        startActivity(shareIntent)
+    }
 }
