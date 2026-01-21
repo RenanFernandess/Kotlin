@@ -24,9 +24,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:hint="@string/username_input_text"
+        app:endIconMode="clear_text"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2">
-
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

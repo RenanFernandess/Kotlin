@@ -6,4 +6,5 @@
     <string name="result_text_view">Resultado:</string>
     <string name="list_item_text">Nome do repositório</string>
     <string name="list_item_share_button_description">compartilhar repositório</string>
+    <string name="user_name_preferences_key">USERNAME</string>
 </resources>

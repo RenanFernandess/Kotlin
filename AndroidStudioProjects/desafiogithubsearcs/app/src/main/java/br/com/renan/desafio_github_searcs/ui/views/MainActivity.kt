@@ -16,6 +16,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import androidx.core.content.edit
 
 class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
@@ -28,8 +29,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.repositoriesRecyclerView.layoutManager = LinearLayoutManager(baseContext)
 
-//        Salvar o estado do input
-//        botão de "X" no input para limpa-lo
+        val userName = getSavedUserName()
+        if (userName != null) {
+            binding.usernameInputText.editText?.setText(userName)
+            requestRepositories(userName)
+        }
+
 //        implmentar o botão de compartilhar
 //        ao clicar no repositorio deve abrir em uma aba do navegador
 //        Validar o input
@@ -40,22 +45,7 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
         binding.searchButton.setOnClickListener {
             val userName = getUserName()
-            binding.resultTextViewMessage.visibility = View.GONE
-            binding.repositoriesRecyclerView.visibility = View.GONE
-            binding.circularProgressIndicator.visibility = View.VISIBLE
-
-            CoroutineScope(Dispatchers.IO).launch {
-                val repositoriesList = mainActivityRepository.getAllRepositoriesByUser(userName)
-                repositoriesList?.let {
-                    withContext(Dispatchers.Main) {
-                        binding.repositoriesRecyclerView.adapter = RepositoriesAdapter(repositoriesList)
-                        binding.resultTextViewMessage.visibility = View.VISIBLE
-                        binding.repositoriesRecyclerView.visibility = View.VISIBLE
-                        binding.circularProgressIndicator.visibility = View.GONE
-                    }
-                }
-            }
-
+            requestRepositories(userName)
         }
     }
 
@@ -63,4 +53,31 @@ class MainActivity : AppCompatActivity() {
         val userName = binding.usernameInputText.editText?.text.toString().trim()
         return userName ?: ""
     }
+
+    private fun requestRepositories(userName: String) {
+        binding.resultTextViewMessage.visibility = View.GONE
+        binding.repositoriesRecyclerView.visibility = View.GONE
+        binding.circularProgressIndicator.visibility = View.VISIBLE
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val repositoriesList = mainActivityRepository.getAllRepositoriesByUser(userName)
+            repositoriesList?.let {
+                withContext(Dispatchers.Main) {
+                    binding.repositoriesRecyclerView.adapter = RepositoriesAdapter(repositoriesList)
+                    binding.resultTextViewMessage.visibility = View.VISIBLE
+                    binding.repositoriesRecyclerView.visibility = View.VISIBLE
+                    binding.circularProgressIndicator.visibility = View.GONE
+                    saveUserName(userName)
+                }
+            }
+        }
+    }
+
+    private fun saveUserName(userName: String) {
+        getPreferences(MODE_PRIVATE).edit {
+            putString(getString(R.string.user_name_preferences_key), userName)
+        }
+    }
+
+    private fun getSavedUserName(): String? = getPreferences(MODE_PRIVATE).getString(getString(R.string.user_name_preferences_key), "")
 }
