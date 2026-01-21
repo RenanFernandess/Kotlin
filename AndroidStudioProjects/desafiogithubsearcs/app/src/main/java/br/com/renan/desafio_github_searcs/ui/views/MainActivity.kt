@@ -1,6 +1,7 @@
 package br.com.renan.desafio_github_searcs.ui.views
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.activity.enableEdgeToEdge
@@ -19,6 +20,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import androidx.core.content.edit
 import br.com.renan.desafio_github_searcs.data.models.RepositoryItemListener
+import androidx.core.net.toUri
 
 class MainActivity : AppCompatActivity(), RepositoryItemListener {
     private var _binding: ActivityMainBinding? = null
@@ -37,7 +39,6 @@ class MainActivity : AppCompatActivity(), RepositoryItemListener {
             requestRepositories(userName)
         }
 
-//        ao clicar no repositorio deve abrir em uma aba do navegador
 //        Validar o input
 //        Implmentar mensagem de erro caso o usuario seja invalido
     }
@@ -92,4 +93,10 @@ class MainActivity : AppCompatActivity(), RepositoryItemListener {
         val shareIntent = Intent.createChooser(sendIntent, null)
         startActivity(shareIntent)
     }
+
+    override fun openWebPage(url: String) {
+        val webIntent: Intent = Intent(Intent.ACTION_VIEW, url.toUri())
+        startActivity(webIntent)
+    }
+
 }

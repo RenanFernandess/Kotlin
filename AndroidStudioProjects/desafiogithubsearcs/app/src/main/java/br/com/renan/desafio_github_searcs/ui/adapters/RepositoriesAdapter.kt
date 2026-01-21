@@ -31,7 +31,10 @@ class RepositoriesAdapter(
         holder.binding.run {
             repositoryName.text = repository.name
             shareButton.setOnClickListener {
-                repositoryItemListener.shareRepository(repository.homepage)
+                repositoryItemListener.shareRepository(repository.htmlURL)
+            }
+            repositoryItemMain.setOnClickListener {
+                repositoryItemListener.openWebPage(repository.htmlURL)
             }
         }
     }
