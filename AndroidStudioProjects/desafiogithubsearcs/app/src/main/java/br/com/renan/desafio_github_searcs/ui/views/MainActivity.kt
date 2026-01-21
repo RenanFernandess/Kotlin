@@ -1,6 +1,7 @@
 package br.com.renan.desafio_github_searcs.ui.views
 
 import android.os.Bundle
+import android.view.View
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -27,7 +28,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         binding.repositoriesRecyclerView.layoutManager = LinearLayoutManager(baseContext)
 
-//        Tela de carregamento
 //        Salvar o estado do input
 //        botão de "X" no input para limpa-lo
 //        implmentar o botão de compartilhar
@@ -40,12 +40,18 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
         binding.searchButton.setOnClickListener {
             val userName = getUserName()
+            binding.resultTextViewMessage.visibility = View.GONE
+            binding.repositoriesRecyclerView.visibility = View.GONE
+            binding.circularProgressIndicator.visibility = View.VISIBLE
 
             CoroutineScope(Dispatchers.IO).launch {
                 val repositoriesList = mainActivityRepository.getAllRepositoriesByUser(userName)
                 repositoriesList?.let {
                     withContext(Dispatchers.Main) {
                         binding.repositoriesRecyclerView.adapter = RepositoriesAdapter(repositoriesList)
+                        binding.resultTextViewMessage.visibility = View.VISIBLE
+                        binding.repositoriesRecyclerView.visibility = View.VISIBLE
+                        binding.circularProgressIndicator.visibility = View.GONE
                     }
                 }
             }

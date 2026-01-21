@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -44,11 +45,24 @@
         app:layout_constraintTop_toBottomOf="@id/username_input_text"
         app:layout_constraintEnd_toEndOf="parent"/>
 
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/circular_progress_indicator"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_button"
+        tools:ignore="MissingConstraints" />
+
     <com.google.android.material.textview.MaterialTextView
         style="@style/TextAppearance.Material3.BodySmall"
-        android:id="@+id/textView3"
+        android:id="@+id/result_text_view_message"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/search_button"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginTop="8dp"
@@ -59,10 +73,11 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginTop="8dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textView3"
+        app:layout_constraintTop_toBottomOf="@id/result_text_view_message"
         tools:listitem="@layout/list_item" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
