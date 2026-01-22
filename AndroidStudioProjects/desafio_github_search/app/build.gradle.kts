@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "br.com.renan.desafio_github_searcs"
+    namespace = "br.com.renan.desafio_github_search"
     compileSdk = 36
 
     buildFeatures {
@@ -12,7 +12,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "br.com.renan.desafio_github_searcs"
+        applicationId = "br.com.renan.desafio_github_search"
         minSdk = 24
         targetSdk = 35
         versionCode = 1

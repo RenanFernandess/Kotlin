@@ -19,6 +19,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "desafio-github-searcs"
+rootProject.name = "desafio-github-search"
 include(":app")
  
