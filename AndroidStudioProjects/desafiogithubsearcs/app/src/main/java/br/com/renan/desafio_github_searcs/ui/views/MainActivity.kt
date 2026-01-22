@@ -1,16 +1,11 @@
 package br.com.renan.desafio_github_searcs.ui.views
 
 import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import android.view.View
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.renan.desafio_github_searcs.R
-import br.com.renan.desafio_github_searcs.data.models.Repository
 import br.com.renan.desafio_github_searcs.data.repository.MainActivityRepository
 import br.com.renan.desafio_github_searcs.databinding.ActivityMainBinding
 import br.com.renan.desafio_github_searcs.ui.adapters.RepositoriesAdapter
@@ -39,7 +34,6 @@ class MainActivity : AppCompatActivity(), RepositoryItemListener {
             requestRepositories(userName)
         }
 
-//        Validar o input
 //        Implmentar mensagem de erro caso o usuario seja invalido
     }
 
@@ -47,13 +41,19 @@ class MainActivity : AppCompatActivity(), RepositoryItemListener {
         super.onStart()
         binding.searchButton.setOnClickListener {
             val userName = getUserName()
-            requestRepositories(userName)
+            if(userName != null) requestRepositories(userName)
         }
     }
 
-    private fun getUserName(): String {
-        val userName = binding.usernameInputText.editText?.text.toString().trim()
-        return userName ?: ""
+    private fun getUserName(): String? = binding.usernameInputText.run {
+        val userName = editText?.text.toString().trim()
+        if (userName.isBlank()) {
+            error = "O nome de usuário deve haver pelomenos 1 caractere"
+            null
+        } else {
+            error = ""
+            userName
+        }
     }
 
     private fun requestRepositories(userName: String) {
